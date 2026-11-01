@@ -1,0 +1,116 @@
+{
+  "info": {
+    "name": "Raízes do Nordeste - Trilha BackEnd 2026",
+    "description": "Validação de Fluxo Crítico (MVP) e Multicanalidade - Aluno UNINTER",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Cadastro LGPD (Segurança)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:8080/api/v1/usuarios/cadastrar",
+          "host": ["http", "127", "0", "0", "1"],
+          "port": "8080",
+          "path": ["api", "v1", "usuarios", "cadastrar"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nome\": \"Professor Avaliador\",\n  \"cpf\": \"99988877700\",\n  \"email\": \"avaliador@uninter.com\",\n  \"senha\": \"nota100\",\n  \"aceite_lgpd\": true\n}"
+        }
+      }
+    },
+    {
+      "name": "2. Autenticar JWT (Login)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/x-www-form-urlencoded"
+          }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:8080/api/v1/auth/token",
+          "host": ["http", "127", "0", "0", "1"],
+          "port": "8080",
+          "path": ["api", "v1", "auth", "token"]
+        },
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "username",
+              "value": "avaliador@uninter.com",
+              "type": "text"
+            },
+            {
+              "key": "password",
+              "value": "nota100",
+              "type": "text"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "3. Fluxo MVP A: Criar Pedido APP",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer COLOQUE_SEU_TOKEN_AQUI"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:8080/api/v1/pedidos",
+          "host": ["http", "127", "0", "0", "1"],
+          "port": "8080",
+          "path": ["api", "v1", "pedidos"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"canal_pedido\": \"APP\",\n  \"itens\": [\n    {\n      \"produto_id\": 1,\n      \"quantidade\": 1\n    }\n  ]\n}"
+        }
+      }
+    },
+    {
+      "name": "4. Validar PGTO Externo (Gateway Mock)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer COLOQUE_SEU_TOKEN_AQUI"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:8080/api/v1/pedidos/3/pagar",
+          "host": ["http", "127", "0", "0", "1"],
+          "port": "8080",
+          "path": ["api", "v1", "pedidos", "3", "pagar"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"cartao_ficticio\": \"1111222233334444\"\n}"
+        }
+      }
+    }
+  ]
+}
