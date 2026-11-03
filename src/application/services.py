@@ -13,7 +13,7 @@ async def criar_pedido_service(db: AsyncSession, pedido_dto: PedidoCreate, usuar
 
         for item_dto in pedido_dto.itens:
             # Busca o produto. O .with_for_update() bloqueia essa linha no banco 
-            # temporariamente para 2 atendentes não comprarem a mesma coxinha ao mesmo tempo!
+            # temporariamente para 2 atendentes não comprarem o mesmo produto ao mesmo tempo!
             stmt = select(Produto).where(Produto.id == item_dto.produto_id).with_for_update()
             resultado = await db.execute(stmt)
             produto = resultado.scalar_one_or_none()
@@ -39,7 +39,7 @@ async def criar_pedido_service(db: AsyncSession, pedido_dto: PedidoCreate, usuar
                 ItemPedido(produto_id=produto.id, quantidade=item_dto.quantidade, preco_unitario=produto.preco)
             )
 
-        # 6. Grava a Capa do Pedido
+        # Grava a Capa do Pedido
         novo_pedido = Pedido(
             usuario_id=usuario_id,
             canal_pedido=pedido_dto.canal_pedido,

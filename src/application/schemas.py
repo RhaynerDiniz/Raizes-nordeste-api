@@ -8,7 +8,7 @@ class ItemPedidoCreate(BaseModel):
     quantidade: int = Field(gt=0, description="A quantidade deve ser no mínimo 1")
 
 class PedidoCreate(BaseModel):
-    # Exige que a Multicanalidade (APP, TOTEM, etc) seja obrigatoriamente informada
+    # Exige que a Multicanalidade (APP, TOTEM, etc) seja informada
     canal_pedido: CanalPedidoEnum
     itens: List[ItemPedidoCreate]
 

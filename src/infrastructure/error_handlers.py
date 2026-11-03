@@ -4,7 +4,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi import HTTPException
 from datetime import datetime
 
-# Este captura erros nossos de regra de negócio (O seu Error 409, Error 404, etc)
+# Este captura erros de regra de negócio 
 async def custom_http_exception_handler(request: Request, exc: HTTPException):
     return JSONResponse(
         status_code=exc.status_code,
@@ -17,7 +17,7 @@ async def custom_http_exception_handler(request: Request, exc: HTTPException):
         }
     )
 
-# Este captura quando um Hack ou App manda JSONs tortos ou errados 
+# Captura quando um Hack ou App manda JSONs tortos ou errados 
 async def validation_exception_handler(request: Request, exc: RequestValidationError):
     return JSONResponse(
         status_code=422,

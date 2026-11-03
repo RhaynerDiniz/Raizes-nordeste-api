@@ -18,7 +18,7 @@ from src.application.schemas import (
 from src.application.services import criar_pedido_service, processar_pagamento_mock_service
 
 router = APIRouter(prefix="/api/v1", tags=["Pedidos e Caixa"])
-auth_router = APIRouter(prefix="/api/v1", tags=["Autenticação e LGPD"]) # Menu Novo!
+auth_router = APIRouter(prefix="/api/v1", tags=["Autenticação e LGPD"]) 
 
 async def get_usuario_logado(token: str = Depends(oauth2_scheme)):
     
@@ -41,7 +41,7 @@ async def cadastrar_usuario(user_dto: UsuarioCreate, db: AsyncSession = Depends(
         nome=user_dto.nome,
         cpf=user_dto.cpf,
         email=user_dto.email,
-        senha_hash=get_password_hash(user_dto.senha), # SENHA BCRYPT (SEGREDO APLICADO)
+        senha_hash=get_password_hash(user_dto.senha), # SENHA BCRYPT 
         role=RoleEnum.CLIENTE,
         aceite_lgpd=user_dto.aceite_lgpd
     )
@@ -65,7 +65,7 @@ async def login_para_obter_token(form_data: OAuth2PasswordRequestForm = Depends(
 async def endpoint_criar_pedido(
     pedido: PedidoCreate, 
     db: AsyncSession = Depends(get_db),
-    # AGORA ACABOU A BRINCADEIRA! SÓ ENTRA AQUI QUEM APRESENTAR O CRACHÁ!
+    
     usuario_id: int = Depends(get_usuario_logado) 
 ):
     return await criar_pedido_service(db=db, pedido_dto=pedido, usuario_id=usuario_id)
@@ -75,7 +75,7 @@ async def endpoint_pagar_pedido(
     pedido_id: int, 
     pagamento: PagamentoMockRequest, 
     db: AsyncSession = Depends(get_db),
-    usuario_id: int = Depends(get_usuario_logado) # Blindado também
+    usuario_id: int = Depends(get_usuario_logado) #
 ):
     return await processar_pagamento_mock_service(db=db, pedido_id=pedido_id, cartao_mock=pagamento.cartao_ficticio)
 

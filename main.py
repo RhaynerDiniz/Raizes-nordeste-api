@@ -26,7 +26,7 @@ app = FastAPI(
     lifespan=lifespan
 )
 
-# Informando api sobre os tratadores de erros
+# Informando sobre os tratadores de erros
 app.add_exception_handler(HTTPException, custom_http_exception_handler)
 app.add_exception_handler(RequestValidationError, validation_exception_handler)
 

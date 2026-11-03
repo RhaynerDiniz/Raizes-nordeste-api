@@ -4,7 +4,6 @@ from sqlalchemy.orm import declarative_base, Mapped, mapped_column, relationship
 
 Base = declarative_base()
 
-# ============ ENUMS (Domínio Restrito) ============
 class RoleEnum(str, enum.Enum):
     CLIENTE = "CLIENTE"
     ATENDENTE = "ATENDENTE"
